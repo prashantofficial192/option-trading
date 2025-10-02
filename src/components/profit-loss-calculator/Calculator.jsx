@@ -30,12 +30,21 @@ export default function Calculator() {
         // Profit per qty
         const Profit_Per_Qty = TP_Price - P;
 
+        // Amount Needed to Trade
+        const Amount_Needed = P * L;
+
         // Total profit if trade succeeds (for lot)
         const Total_Profit = Profit_Per_Qty * L;
 
         // helpful sanity: percent values
         const Loss_Percent = (Loss_Per_Qty / P) * 100 || 0;
         const Profit_Percent = (Profit_Per_Qty / P) * 100 || 0;
+
+        // Total Profit with invested amount
+        const Total_Profit_With_Investment = Total_Profit + Amount_Needed;
+
+        // Total Loss with invested amount
+        const Total_Loss_With_Investment = Amount_Needed - Total_Loss;
 
         function f(n) {
             // format number: show up to 2 decimals, remove trailing zeros
@@ -51,6 +60,9 @@ export default function Calculator() {
             Total_Profit: f(Total_Profit),
             Loss_Percent: f(Loss_Percent),
             Profit_Percent: f(Profit_Percent),
+            Amount_Needed: f(Amount_Needed),
+            Total_Profit_With_Investment: f(Total_Profit_With_Investment),
+            Total_Loss_With_Investment: f(Total_Loss_With_Investment),
         };
     }, [premium, lotSize, slPercent, tpMultiplier]);
 
@@ -122,26 +134,44 @@ export default function Calculator() {
 
                 <div className="grid">
                     <div className="card">
-                        <div className="label">Stop Loss Price</div>
-                        <div className="value" style={{color: '#ff7b7b'}}>₹ {results.SL_Price}</div>
-                        <div className="sub">Loss per qty: ₹ {results.Loss_Per_Qty} ({results.Loss_Percent}%)</div>
-                    </div>
-
-                    <div className="card">
-                        <div className="label">Target Price (TP)</div>
-                        <div className="value" style={{color: '#26c1e8'}}>₹ {results.TP_Price}</div>
-                        <div className="sub">Profit per qty: ₹ {results.Profit_Per_Qty} ({results.Profit_Percent}%)</div>
-                    </div>
-
-                    <div className="card">
-                        <div className="label">Total Loss (if trade fails)</div>
-                        <div className="value" style={{color: '#ff2c2c'}}>₹ {results.Total_Loss}</div>
+                        <div className="label">Amount to Trade</div>
+                        <div className="value" style={{ color: '#ff9f1c' }}>₹ {results.Amount_Needed}</div>
                         <div className="sub">For {lotSize} qty</div>
                     </div>
 
                     <div className="card">
-                        <div className="label">Total Profit (if trade succeeds)</div>
-                        <div className="value" style={{color: '#5cb85c'}}>₹ {results.Total_Profit}</div>
+                        <div className="label">Target Price</div>
+                        <div className="value" style={{ color: '#26c1e8' }}>₹ {results.TP_Price}</div>
+                        <div className="sub">Profit per qty: ₹ {results.Profit_Per_Qty} ({results.Profit_Percent}%)</div>
+                    </div>
+
+                    <div className="card">
+                        <div className="label">Stop Loss Price</div>
+                        <div className="value" style={{ color: '#ff7b7b' }}>₹ {results.SL_Price}</div>
+                        <div className="sub">Loss per qty: ₹ {results.Loss_Per_Qty} ({results.Loss_Percent}%)</div>
+                    </div>
+
+                    <div className="card">
+                        <div className="label">Total Profit</div>
+                        <div className="value" style={{ color: '#5cb85c' }}>₹ {results.Total_Profit}</div>
+                        <div className="sub">For {lotSize} qty</div>
+                    </div>
+
+                    <div className="card">
+                        <div className="label">Total Profit with traded amount</div>
+                        <div className="value" style={{ color: '#5cb85c' }}>₹ {results.Total_Profit_With_Investment}</div>
+                        <div className="sub">For {lotSize} qty</div>
+                    </div>
+
+                    <div className="card">
+                        <div className="label">Total Loss</div>
+                        <div className="value" style={{ color: '#ff2c2c' }}>₹ {results.Total_Loss}</div>
+                        <div className="sub">For {lotSize} qty</div>
+                    </div>
+
+                    <div className="card">
+                        <div className="label">Total Loss with traded amount</div>
+                        <div className="value" style={{ color: '#ff2c2c' }}>₹ {results.Total_Loss_With_Investment}</div>
                         <div className="sub">For {lotSize} qty</div>
                     </div>
                 </div>
@@ -155,6 +185,9 @@ export default function Calculator() {
                         <li>Total Loss = Loss per qty × Lot Size</li>
                         <li>Profit per qty = TP Price - Premium</li>
                         <li>Total Profit = Profit per qty × Lot Size</li>
+                        <li>Amount to Trade = Premium × Lot Size</li>
+                        <li>Total Profit with traded amount = Total Profit + Amount to Trade</li>
+                        <li>Total Loss with traded amount = Amount to Trade - Total Loss</li>
                     </ul>
                 </div>
             </section>

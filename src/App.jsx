@@ -24,7 +24,7 @@ function App() {
           </Routes>
         </main>
 
-        <footer className="footer">© {new Date().getFullYear()} Prashant</footer>
+        {/* <footer className="footer">© {new Date().getFullYear()} Prashant</footer> */}
       </div>
     </Router>
   );
