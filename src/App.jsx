@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 // import Home from "./components/Home";
 import PaperTradeList from "./components/paper-trade/PaperTradeList";
 import Calculator from "./components/profit-loss-calculator/Calculator";
+import GannNumbers from "./components/gann-numbers/GannNumbers";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             {/* <Link to="/">Home</Link> */}
             <Link to="/">Calculator</Link>
             <Link to="/paper-trade">Paper Trade</Link>
+            <Link to="/gann-numbers">Gann Numbers</Link>
           </nav>
         </header>
 
@@ -21,6 +23,7 @@ function App() {
             {/* <Route path="/" element={<Home />} /> */}
             <Route path="/" element={<Calculator />} />
             <Route path="/paper-trade" element={<PaperTradeList />} />
+            <Route path="/gann-numbers" element={<GannNumbers />} />
           </Routes>
         </main>
 
